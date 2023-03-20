@@ -9,7 +9,7 @@
                   <div class="font-hahmlet text-sm sm:text-base">HI 👋, Perkenalkan saya
                     <span class="font-hahmlet font-bold text-3xl block mt-3">Fahmi Ahmad</span>
                   </div>
-                  <div class="font-inter font-bold sm:text-xl text-lg mt-3">Frontend & Backend Development</div>
+                  <div class="font-inter font-bold sm:text-xl text-lg mt-3">Frontend & Backend Developer</div>
                   <div class="mt-2 text-light-70">Saya berasal dari indonesia, 
                     <span class="block"> Siswa SMKN 17 Jakarta, jurusan </span> 
                     <span class="block"> Rekayasa Perangkat Lunak (RPL)</span> 

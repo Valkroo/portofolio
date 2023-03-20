@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\AdminControllers;
 
-use App\Models\posts;
+use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         return view('admin.post.index', [
-            "posts" => Posts::all()
+            "posts" => Post::all()
         ]);
     }
 
@@ -45,7 +45,7 @@ class PostController extends Controller
         $newdata = $request->validated();
 
         $newdata['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
-        Posts::create($newdata);
+        Post::create($newdata);
 
         return redirect('/dashboard/posts');
     }
@@ -56,7 +56,7 @@ class PostController extends Controller
      * @param  \App\Models\posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function show(posts $post)
+    public function show(Post $post)
     {
         return view('admin.post.show', [
             'post' => $post
@@ -69,7 +69,7 @@ class PostController extends Controller
      * @param  \App\Models\posts  $posts
      * @return \Illuminate\Http\Response
      */
-   public function edit(posts $post)
+   public function edit(Post $post)
     {
         return view('admin.post.edit', [
             'post' => $post
@@ -83,7 +83,7 @@ class PostController extends Controller
      * @param  \App\Models\posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatepostsRequest $request, posts $post)
+    public function update(UpdatepostsRequest $request, Post $post)
     {
         $newdata = $request;
         if ($request->slug != $post->slug) {
@@ -91,7 +91,7 @@ class PostController extends Controller
         }
         $dataupdate = $request->validated($newdata);
         $dataupdate['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
-        Posts::where('id', $post->id)->update($dataupdate);
+        Post::where('id', $post->id)->update($dataupdate);
 
         return redirect('/dashboard/posts');
     }
@@ -102,9 +102,9 @@ class PostController extends Controller
      * @param  \App\Models\posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function destroy(posts $post)
+    public function destroy(Post $post)
     {
-        Posts::destroy($post->id);
+        Post::destroy($post->id);
 
         return redirect('/dashboard/posts')->with('success', 'Post has been deleted!');
     }

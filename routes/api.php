@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\ApiControllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,6 @@ use App\Http\Controllers\Admin\PostController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::resource('/dashboard/posts', PostController::class)->middleware('auth');
-Route::get('/dashboard/cekSlug', [PostController::class, 'Slug'])->middleware('auth');
+Route::prefix('V1')->group(function () {
+   Route::get('/mydata', [PostController::class, 'index']);
+});

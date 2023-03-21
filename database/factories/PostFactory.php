@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PostsFactory extends Factory
+class PostFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class PostsFactory extends Factory
             'title' => $this->faker->sentence(mt_rand(4,7)),
             'slug' => $this->faker->slug(),
             'excerpt' => $this->faker->paragraph(),
-            'body' => collect($this->faker->paragraph(mt_rand(15,25)))  
+            'body' => $this->faker->paragraph(mt_rand(15,25))  
         ];
     }
 }

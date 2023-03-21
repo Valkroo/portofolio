@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiControllers\PostController;
+use App\Http\Controllers\ApiControllers\UserController;
+use Facade\FlareClient\Api;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +18,6 @@ use App\Http\Controllers\ApiControllers\PostController;
 |
 */
 Route::prefix('V1')->group(function () {
-   Route::get('/mydata', [PostController::class, 'index']);
+   Route::middleware('auth:api')->get('/mydata', [PostController::class, 'index']);
+   Route::post('/login', [UserController::class, 'login']);
 });

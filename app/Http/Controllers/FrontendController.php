@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Policies\PostsPolicy;
+use App\Http\Requests\CommentsRequest;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
@@ -25,7 +26,21 @@ class FrontendController extends Controller
     public function detailPost(Post $posts)
     {
         return view('detailPost', [
-            "post" => $posts
+            "post" => $posts,
+            "comments" => $posts->comments()->get()
         ]);
+    }
+
+    public function StoreComment(Post $posts, CommentsRequest $request)
+    {
+        $data = $request->validated();
+        $comment = new Comment();
+
+        $comment->post_id   = $posts->id;
+        $comment->name      = $data['name'];
+        $comment->comment   = $data['comment'];
+        $comment->save();
+
+        return redirect()->back();
     }
 }

@@ -42,6 +42,44 @@
                     </a>
                 </ul>
             </div>
+            <div class="border shadow-md rounded-lg mt-8 font-inter">
+                <div class="m-8">
+                    <div class="font-semibold text-lg">Leave Comment Here</div>                
+                    <form action="/post/{{ $post->id }}/comments" method="post" class="mt-4">
+                        @csrf
+                        <input type="hidden" name="post_slug" value="{{ $post->slug }}">
+                        <div class="mb-4">
+                            <label class="block text-gray-500 text-base font-medium mb-2" for="name">Name :</label>
+                            <input type="text" id="name" name="name" class="shadow text-sm appearance-none border focus:border-2 rounded  w-full py-2 px-3 text-gray-700 leading-tight focus:border-blue-400 focus:outline-blue-400 focus:shadow-lg focus:shadow-blue-100 " placeholder="name" value="{{ old('name') }}">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-500 text-base font-medium mb-2" for="comment">Comment :</label>
+                            <textarea name="comment" id="comment" cols="30" rows="4" class="shadow text-sm appearance-none border focus:border-2 rounded  w-full py-2 px-3 text-gray-700 leading-tight focus:border-blue-400 focus:outline-blue-400 focus:shadow-lg focus:shadow-blue-100 " placeholder="" value="{{ old('comment') }}"></textarea>
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:shadow-lg active:outline-double active:outline-4 active:outline-blue-400"
+                        type="submit">submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="border border-gray-100 rounded shadow-lg mt-8 font-inter">
+                <div class="p-5 font-semibold text-lg">Comments</div>
+                <div class="max-h-56 overflow-auto">
+                    <div class="mx-8 pb-4">
+                        @if ($comments->count() > 0)
+                          @foreach ($comments as $comment)
+                            <div class="border border-gray-100 shadow-md px-8 py-4 rounded-md mb-5">
+                              <div class="font-semibold text-base mb-2">{{ $comment->name }}<span class="ml-4 text-sm text-blue-400">{{ $comment->created_at->diffForHumans() }}</span></div>
+                              <p class="text-gray-500 font-medium text-sm">
+                              {{ $comment->comment }}
+                              </p>
+                            </div>
+                          @endforeach
+                         @else
+                           <p class="font-semibold text-base mb-2">no comments yet</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
             <a href="/posts">
                 <button class="bg-yellow-300 hover:bg-yellow-400 rounded-xl p-2 gap-x-3 flex font-inter text-base active:bg-yellow-500 group active:shadow-lg shadow-md hover:shadow-lg mt-8 items-center">
                   <div class="group-hover:stroke-slate-700 group-active:stroke-slate-600 ml-2">

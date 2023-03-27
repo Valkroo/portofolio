@@ -4,8 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiControllers\PostController;
 use App\Http\Controllers\ApiControllers\UserController;
-use Facade\FlareClient\Api;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------

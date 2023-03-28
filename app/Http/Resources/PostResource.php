@@ -19,7 +19,8 @@ class PostResource extends JsonResource
             'slug' => $this->slug,
             'title' => $this->title,
             'excerpt' => $this->excerpt,
-            'body' => $this->body
+            'body' => $this->body,
+            'update_at' => date_format($this->updated_at, "d/m/Y")
         ];
     }
 }

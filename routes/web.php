@@ -20,8 +20,9 @@ use App\Http\Controllers\AdminControllers\DashboardController;
 // frontend
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/posts', [FrontendController::class, 'posts']);
-Route::get('/post/{posts:slug}', [FrontendController::class, 'detailPost']);
-Route::post('/post/{posts:id}/comments', [FrontendController::class, 'StoreComment']);
+Route::get('/post/{post:slug}', [FrontendController::class, 'detailPost']);
+Route::post('/post/{posts:id}/comment', [FrontendController::class, 'StoreComment']);
+Route::delete('/post/{post:slug}/comment/{comment:id}', [FrontendController::class, 'DestroyComment'])->middleware('admin');
 
 // backend
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');

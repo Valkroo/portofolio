@@ -23,11 +23,11 @@ class FrontendController extends Controller
         
     }
     
-    public function detailPost(Post $posts)
+    public function detailPost(Post $post)
     {
         return view('detailPost', [
-            "post" => $posts,
-            "comments" => $posts->comments()->get()
+            "post" => $post,
+            "comments" => $post->comments()->get()
         ]);
     }
 
@@ -41,6 +41,12 @@ class FrontendController extends Controller
         $comment->comment   = $data['comment'];
         $comment->save();
 
+        return redirect()->back();
+    }
+
+    public function DestroyComment(Post $post, Comment $comment)
+    {
+        Comment::destroy($comment->id);
         return redirect()->back();
     }
 }

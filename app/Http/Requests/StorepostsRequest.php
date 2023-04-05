@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorepostsRequest extends FormRequest
@@ -27,6 +26,7 @@ class StorepostsRequest extends FormRequest
         return [
             'title' =>  'required|max:225',
             'slug' =>  'required|unique:posts',
+            'image' => 'image|file',
             'body' =>  'required',
         ];
     }

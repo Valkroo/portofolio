@@ -6,9 +6,13 @@
         <div class="max-w-5xl mx-auto">
             <div class="font-hahmlet font-bold lg:text-2xl sm:text-xl text-base">{{ $post->title }}</div>
             <div class="lg:my-12 md:my-8 my-4">
+                @if ($post->image)
+                <img src="{{ asset('storage/' . $post->image) }}" alt="" class=" w-full">
+                @else
                 <img src="/image/gambar.png" alt="" class=" w-full">
+                @endif
             </div>
-            <p class="font-inter pt-3 text-light-80 md:text-base text-sm">{!! $post->body !!}</p>
+            <div class="font-inter pt-3 text-gray-600 md:text-base text-sm">{!! $post->body !!}</div>
             
             <div class="mt-14">
                 <div class="text-xl font-bold font-inter">Share This Post</div>

@@ -25,6 +25,7 @@ class UpdatepostsRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
+            'image' => 'image|file',
             'body' => 'required'
         ];
     }

@@ -4,8 +4,12 @@
     <div class="text-3xl font-hahmlet font-bold mb-6">
         {{ $post->title }}
     </div>
+    @if ($post->image)
+    <div class="container mb-6"><img src="{{ asset('storage/' . $post->image) }}" alt="" class="max-w-3xl w-full"></div>
+    @else
     <div class="container mb-6"><img src="/image/gambar.png" alt="" class="max-w-3xl w-full"></div>
-    <p class="text-slate-500 text-base">{!! $post->body !!}</p>
+    @endif
+    <div class="text-gray-600 font-inter text-base">{!! $post->body !!}</div>
     <div class="flex gap-3 mt-6">
         <a href="/dashboard/posts" class="bg-sky-300 p-2 rounded-lg font-inter flex gap-2 items-center w-44">
             <span class="items-center">

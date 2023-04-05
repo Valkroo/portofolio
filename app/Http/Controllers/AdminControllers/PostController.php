@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorepostsRequest;
 use App\Http\Requests\UpdatepostsRequest;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -43,6 +44,11 @@ class PostController extends Controller
     public function store(StorepostsRequest $request)
     {
         $newdata = $request->validated();
+
+        if ($request->file('image')) {
+            $newdata['image'] = $request->file('image')->store('post-images');
+        }
+
 
         $newdata['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
         Post::create($newdata);
@@ -86,10 +92,21 @@ class PostController extends Controller
     public function update(UpdatepostsRequest $request, Post $post)
     {
         $newdata = $request;
+        
         if ($request->slug != $post->slug) {
             $newdata['slug'] = 'required|unique:posts';
         }
+
         $dataupdate = $request->validated($newdata);
+
+        if ($request->file('image')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+
+            $dataupdate['image'] = $request->file('image')->store('post-images');
+        }
+        
         $dataupdate['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
         Post::where('id', $post->id)->update($dataupdate);
 
@@ -104,6 +121,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
         Post::destroy($post->id);
 
         return redirect('/dashboard/posts')->with('success', 'Post has been deleted!');

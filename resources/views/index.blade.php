@@ -51,7 +51,11 @@
     <div class="lg:max-w-4xl md:max-w-3xl sm:max-w-2xl justify-center flex flex-wrap mx-auto gap-x-8 gap-y-10 px-4">
       @foreach ($posts->take(4) as $post)
       <figure class="bg-secondary text-start rounded-xl w-64 sm:w-72 md:w-80 lg:w-96 shadow-md">
+        @if ($post->image)
+        <a href="/post/{{ $post->slug }}"><img src="{{ asset('storage/' . $post->image) }}" alt="" class="rounded-t-xl"></a>
+        @else
         <a href="/post/{{ $post->slug }}"><img src="/image/gambar1.png" alt="" class="rounded-t-xl"></a>
+        @endif
         <div class="p-6">
           <div class="font-hahmlet font-medium lg:text-xl md:text-lg text-base "><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></div>
           <p class="font-inter pt-3 text-light-80 md:text-base text-sm">{{ $post->excerpt }}</p>

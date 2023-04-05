@@ -4,21 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentsRequest;
 use App\Models\Comment;
-use Illuminate\Http\Request;
 use App\Models\Post;
 
 class FrontendController extends Controller
 {
     public function index(){ 
         return view('index', [
-            'posts' => Post::all()
+            'posts' => Post::latest()->get()
         ]); 
         
     }
 
     public function posts(){
         return view('posts', [
-            "posts" => Post::all()
+            "posts" => Post::latest()->get()
         ]); 
         
     }

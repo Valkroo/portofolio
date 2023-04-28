@@ -3,47 +3,58 @@
 @section('content')
 
 @if ($posts->count())
-<section class="text-center py-20">
+<section class="text-center my-20">
     <div class="container mx-auto px-6">
       <div class="font-hahmlet font-bold text-3xl">Welcome to my blog</div>
       <div class="font-inter text-light-80 my-6">Berikut merupakan post-post yang <span class="block">telah saya buat sendiri</span></div>
+      <form class="mb-6 flex justify-center border-2 max-w-2xl rounded-lg mx-auto">
+        <input type="text" class="p-2 w-full rounded-l-lg focus:z-10 focus:border-blue-500 focus:ring-blue-500 outline-none focus:border-2" placeholder="search..." name="search" value="{{ request('search') }}">
+        <button class="bg-primary p-2 text-light-70 rounded-r-md hover:bg-green-300 font-semibold transition-all shadow-md" type="submit">Search</button>
+      </form>
       <figure class="md:max-w-2xl max-w-xl bg-secondary mx-auto rounded-xl mb-12">
         @if ($posts[0]->image)
         <div>
-          <a href="/post/{{ $posts[0]->slug }}"><img src="{{ asset('storage/' . $posts[0]->image) }}" alt="" class="w-screen sm:h-48 rounded-t-xl"></a>
+          <a href="/post/{{ $posts[0]->slug }}"><img src="{{ asset('storage/' . $posts[0]->image) }}" alt="/post/{{ $posts[0]->slug }}" class="w-screen sm:h-48 rounded-t-xl"></a>
         </div>
         @else
         <div>
-          <a href="/post/{{ $posts[0]->slug }}"><img src="image/gambar1.png" alt="" class="w-screen sm:h-48 rounded-t-xl"></a>
+          <a href="/post/{{ $posts[0]->slug }}"><img src="image/gambar1.png" alt="/post/{{ $posts[0]->slug }}" class="w-screen sm:h-48 rounded-t-xl"></a>
         </div>
         @endif
           <div class="p-6 text-start sm:text-center">
-              <div class="font-hahmlet font-medium lg:text-2xl md:text-lg text-base "><a href="/post/{{ $posts[0]->slug }}">{{ $posts[0]->title }}.</a></div>
+              <div class="font-hahmlet font-medium lg:text-2xl md:text-lg text-base "><a href="/post/{{ $posts[0]->slug }}" alt="/post/{{ $posts[0]->slug }}">{{ $posts[0]->title }}.</a></div>
               <p class="font-inter pt-3 text-light-80 md:text-base text-sm">{{ $posts[0]->excerpt }}</p>
-              <div class="font-inter text-sm pt-6"><a href="/post/{{ $posts[0]->slug }}">Read more</a></div>
+              <div class="font-inter text-sm pt-6"><a href="/post/{{ $posts[0]->slug }}" alt="/post/{{ $posts[0]->slug }}">Read more</a></div>
           </div>
       </figure>
       <div class="lg:max-w-4xl md:max-w-3xl  justify-center flex flex-wrap mx-auto gap-x-8 gap-y-10">
         @foreach ($posts->skip(1) as $post)
         <figure class="bg-secondary text-start rounded-xl w-64 md:w-80 shadow-md">
           @if ($post->image)
-            <a href="/post/{{ $post->slug }}"><img src="{{ asset('storage/' . $post->image) }}" alt="" class="rounded-t-xl"></a>
+            <a href="/post/{{ $post->slug }}" alt="/post/{{ $post->slug }}"><img src="{{ asset('storage/' . $post->image) }}" alt="/post/{{ $post->slug }}" class="rounded-t-xl"></a>
           @else
-            <a href="/post/{{ $post->slug }}"><img src="/image/gambar1.png" alt="" class="rounded-t-xl"></a>
+            <a href="/post/{{ $post->slug }}" alt="/post/{{ $post->slug }}"><img src="/image/gambar1.png" alt="/post/{{ $post->slug }}" class="rounded-t-xl"></a>
           @endif
           <div class="p-6">
-            <div class="font-hahmlet font-medium lg:text-xl md:text-lg text-base "><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></div>
+            <div class="font-hahmlet font-medium lg:text-xl md:text-lg text-base "><a href="/post/{{ $post->slug }}" alt="/post/{{ $post->slug }}">{{ $post->title }}</a></div>
             <p class="font-inter pt-3 text-light-80 md:text-base text-sm">{{ $post->excerpt }}</p>
-            <div class="font-inter text-sm pt-6"><a href="/post/{{ $post->slug }}">Read more</a></div>
+            <div class="font-inter text-sm pt-6"><a href="/post/{{ $post->slug }}" alt="/post/{{ $post->slug }}">Read more</a></div>
           </div>
         </figure>
         @endforeach
+      </div>
+      <div class="mt-12">
+        {{ $posts->links() }}
       </div>
     </div>
 </section>
     @else
     <section>
       <div class="container mx-auto font-inter my-20 sm:my-36 md:my-32 lg:my-20">
+        <form class="mb-6 flex justify-center border-2 max-w-2xl rounded-lg mx-auto">
+          <input type="text" class="p-2 w-full rounded-l-lg focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 outline-none focus:border-2" placeholder="search..." name="search" value="{{ request('search') }}">
+          <button class="bg-primary p-2 text-light-70 rounded-r-md hover:bg-green-300 font-semibold transition-all shadow-md" type="submit">Search</button>
+        </form>
         <div class="text-center">
           <div class="opacity-70">
             <svg viewBox="0 0 1436 429" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

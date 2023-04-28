@@ -25,9 +25,12 @@ Route::post('/post/{posts:id}/comment', [FrontendController::class, 'StoreCommen
 Route::delete('/post/{post:slug}/comment/{comment:id}', [FrontendController::class, 'DestroyComment'])->middleware('admin');
 
 // backend
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-Route::resource('/dashboard/posts', PostController::class)->middleware('auth');
-Route::get('/dashboard/cekSlug', [PostController::class, 'Slug']);
+Route::prefix('/dashboard')->group(function () {
+    Route::get('', [DashboardController::class, 'index'])->middleware('auth');
+    Route::resource('/posts', PostController::class)->middleware('auth');
+    Route::get('/cekSlug', [PostController::class, 'Slug']);
+});
+
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/logout', [AuthController::class, 'logout']);

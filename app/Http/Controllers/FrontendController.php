@@ -8,20 +8,20 @@ use App\Models\Post;
 
 class FrontendController extends Controller
 {
-    public function index(){ 
+    public function index()
+    {
         return view('index', [
             'posts' => Post::latest()->get()
-        ]); 
-        
+        ]);
     }
 
-    public function posts(){
+    public function posts()
+    {
         return view('posts', [
-            "posts" => Post::latest()->get()
-        ]); 
-        
+            "posts" => Post::latest()->searching(request(['search']))->paginate(5)->withQueryString()
+        ]);
     }
-    
+
     public function detailPost(Post $post)
     {
         return view('detailPost', [

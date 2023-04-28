@@ -12,6 +12,14 @@ class Post extends Model
 
     protected $guarded = ['id'];
 
+    public function scopeSearching($query, array $searching)
+    {
+        $query->when($searching['search'] ?? false, function ($query, $search) {
+            $query->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('body', 'like', '%' . $search . '%');
+        });
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -19,7 +27,7 @@ class Post extends Model
 
     public function getRouteKeyName()
     {
-     return 'slug';
+        return 'slug';
     }
 
     public function sluggable(): array

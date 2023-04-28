@@ -11,14 +11,15 @@ use Laravel\Passport\TokenRepository;
 
 class UserController extends Controller
 {
-    public function login( Request $request ){
+    public function login(Request $request)
+    {
         $login = $request->validate([
             'email' => 'required',
             'password' => 'required'
         ]);
 
         if (!Auth::attempt($login)) {
-            return response(['message' => 'login is invalid' ]);
+            return response(['message' => 'login is invalid']);
         }
 
         $accessToken = Auth::user()->createToken('authToken')->accessToken;
